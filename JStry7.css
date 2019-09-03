@@ -1,0 +1,41 @@
+body{
+    background-color:rgb(97, 162, 218);
+    font-family:Microsoft JhengHei;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height:100%;
+    text-align: center;
+    margin: 0 auto;
+}
+.header{
+    color:#FFF;
+}
+.wrapper{
+background-color: pink;
+height: 450px;
+width: 600px;
+border-radius:20px
+
+}
+input{
+    width: 500px;
+    height: 40px;
+
+}
+button{
+    background-color: #FFF;
+    height: 40px;
+    font-size: 20px;
+    width: 125px;
+    border-radius: 10px;
+    margin: 2px 0;
+}
+.btn-large{
+    width: 254px;
+}
+.text{
+    border-radius: 10px;
+    font-size: 24px;
+    text-align: right;
+}
