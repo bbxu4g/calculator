@@ -12,10 +12,11 @@ body{
     color:#FFF;
 }
 .wrapper{
-background-color: pink;
-height: 450px;
-width: 600px;
-border-radius:20px
+    background-color: pink;
+    height: 450px;
+    width: 600px;
+    border-radius:20px;
+    margin: 0 auto;
 
 }
 input{
@@ -34,7 +35,7 @@ button{
 .btn-large{
     width: 254px;
 }
-.text{
+#showbox{
     border-radius: 10px;
     font-size: 24px;
     text-align: right;
