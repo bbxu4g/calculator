@@ -83,8 +83,7 @@ $(function () {
                 break;
             case "/":
                 display = operand_02 / operand_01;
-                console.log(display);
-                $(".answer>input").val(parseInt(display) );
+                $(".answer>input").val(display);
                 break;
         }
     }
