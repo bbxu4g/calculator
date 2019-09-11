@@ -23,12 +23,13 @@ $(function () {
                 isDec = false;
                 userClick = false;
                 $num = 0;
+                operand=[];
                 $(".answer>input").val(display);
                 break;
             case "del":
 
                 $num = $num.substring(0, $num.length - 1);
-                $(".answer>input").val($num.substring(1, 20));
+                $(".answer>input").val($num.substring(1, $num.length));
                 if ($num == 0) $(".answer>input").val("0");
                 break;
 
@@ -47,9 +48,15 @@ $(function () {
     })
     function calc(e) {
         console.log(e);//符號
-
+        var operand_01 = operand.pop()*1;
+        var operand_02 = operand.pop()*1;
+        console.log(operand_01, operand_02);
         switch (e) {
             case "+":
+display=operand_01*1+operand_02*1;
+console.log(display);
+$(".answer>input").val(display);
+operand.push(display);
 
                 break;
             case "-":
@@ -62,25 +69,24 @@ $(function () {
     }
     //存數字
     function calculator(num) {
-        operand.push(display.substr(1, 20));
+        operand.push(display.substr(0, $num.length ));
         console.log(operand);// [empty, "123", "456"]
 
         // console.log(operand,operator);
         // operand[1] = operator;// [empty, "123"] "456"
         // console.log(operand,operator);
-        calc(num, operand);
+       
         userClick = true;
+        if(operand.length>1) calc(num);
         //  console.log(operand);// [empty, "456"]
-        var operand_01 = operand.substr(0, length - 1);
-        var operand_02 = operand.substr(0, length - 1);
-        console.log(operand_01, operand_02);
+       
 
     }
 
     function displayNumber(num) {
         $num += num;
         display = $num;
-        $(".answer>input").val(display.substr(1, 20));
+        $(".answer>input").val(display.substr(1, $num.length));
     }
 
 
