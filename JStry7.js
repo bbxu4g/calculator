@@ -14,7 +14,7 @@ $(function () {
     $("button").click(function () {
 
         var num = $(this).val();//計算機的數字
-        if ($(".answer>input").val().length > 14) {alert("超過15個字了");$(".answer>input").val($num.substring(1,15));}
+        if ($(".answer>input").val().length > 14) { alert("超過15個字了"); $(".answer>input").val($num.substring(1, 15)); }
         else {
             switch (num) {
                 case "clean":
@@ -37,19 +37,25 @@ $(function () {
                 default:
                     if ($num === '0' && num == 0) { $(".answer>input").val("0"); }
                     else {
-
-                        if (userClick == false) { displayNumber(num); console.log("A"); }
-                        else { console.log("B"); $num = $(".answer>input").val(); operand.push($num); $num = num; $(".answer>input").val(num); }
-
+                        if (userClick == false) { displayNumber(num); console.log("41"); }//還沒按過符號
+                        else {
+                            console.log("42");//按過符號
+                            $num = $(".answer>input").val(); //先存目前數字
+                            operand.push($num); //推上目前數字
+                            num2(num);
+                        }
                     }
                     break;
-
             }
-
         }
     })
 
+    function num2(num) {
+        display += num;
+        $(".answer>input").val(display);
+        console.log("56");//按過符號
 
+    }
     function dot() {
         if (!isDec) {
             isDec = true;
@@ -91,18 +97,19 @@ $(function () {
     function calculator(num) {
         // console.log(operand, $num, num, userClick);
         $num = $(".answer>input").val();
-        squ = num;
-        if (userClick == false) {
+        console.log(num);
+        if (userClick == false) {//還沒按過符號
+            if (num == "+" || num == "-") { operand.push(0); console.log("92"); }
+            if (num == "*" || num == "/") { operand.push(1); console.log("93"); }
             userClick = true;
-            operand.push($num);
-            console.log("A");
+            operand.push($num);//先推一個數字在推計算機上的數字
+            squ = num;//符號存起來
         }
         else {
-            console.log("B");
-            if (operand.length > 1) {  operand.push($num); calc(num); console.log("C"); }
-            else { operand = []; operand.push($num); console.log("D"); }
+            if (operand.length > 2) { operand.push($num); console.log("99", operand); calc(squ); }//存到兩個數字就計算
+            else { operand = []; operand.push($num); console.log("100", operand); }//重複按符號
+            squ = num;
         }
-
     }
     //單純的數字
     function displayNumber(num) {
