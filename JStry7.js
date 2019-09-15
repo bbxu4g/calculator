@@ -97,6 +97,7 @@ $(function () {
                 $(".answer>input").val(display);
                 break;
         }
+        operand.push(display); 
     }
     //按下四則運算則存數字
     function calculator(num) {
