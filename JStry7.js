@@ -5,7 +5,7 @@ var isDec = false;
 var squ = 0;
 var userClick = false;
 var $num = $(".answer>input").val();//計算機的數字
-
+var num3 = 0;
 $(function () {
     //先放0進去
     $(".answer>input").val(display);
@@ -24,24 +24,25 @@ $(function () {
                     userClick = false;
                     $num = 0;
                     operand = [];
+                    num3=0;
                     $(".answer>input").val(display);
                     break;
                 case "del":
                     $num = $num.substring(0, $num.length - 1);
-                    $(".answer>input").val($num.substring(1, $num.length));
+                    $(".answer>input").val($num.substring(1, operand));
                     if ($num == 0) $(".answer>input").val("0");
                     break;
                 case "+": case "-": case "*": case "/": calculator(num); break;
                 case ".": dot(); break;
-                case "answer": if ($num != "0") { operand.push($num); answer(); } break;
+                case "answer": $num = $(".answer>input").val(); if ($num != "0") { operand.push($num); answer(); } break;
                 default:
                     if ($num === '0' && num == 0) { $(".answer>input").val("0"); }
                     else {
-                        if (userClick == false) { displayNumber(num); console.log("41"); }//還沒按過符號
+                        if (userClick == false) { displayNumber(num); console.log(num); }//還沒按過符號
                         else {
                             console.log("42");//按過符號
                             $num = $(".answer>input").val(); //先存目前數字
-                            operand.push($num); //推上目前數字
+                            $(".answer>input").val("");
                             num2(num);
                         }
                     }
@@ -51,10 +52,12 @@ $(function () {
     })
 
     function num2(num) {
-        display += num;
-        $(".answer>input").val(display);
-        console.log("56");//按過符號
+        num3 += num;
+        $(".answer>input").val(num3.substr(1,num3.length-1));
+        console.log(num3);
 
+
+        //按過符號
     }
     function dot() {
         if (!isDec) {
@@ -71,6 +74,7 @@ $(function () {
 
     function calc(e) {
         console.log(e);//符號
+        console.log(operand);
         var operand_01 = operand.pop() * 1;
         var operand_02 = operand.pop() * 1;
         console.log(operand_01, operand_02);
@@ -78,6 +82,7 @@ $(function () {
             case "+":
                 display = operand_01 + operand_02;
                 $(".answer>input").val(display);
+                console.log(operand_01,operand_02);
                 break;
             case "-":
                 display = operand_02 - operand_01;
@@ -97,17 +102,18 @@ $(function () {
     function calculator(num) {
         // console.log(operand, $num, num, userClick);
         $num = $(".answer>input").val();
-        console.log(num);
+        console.log(num);//num是符號
         if (userClick == false) {//還沒按過符號
-            if (num == "+" || num == "-") { operand.push(0); console.log("92"); }
-            if (num == "*" || num == "/") { operand.push(1); console.log("93"); }
+            if (num == "+" || num == "-") { operand.push(0); }
+            if (num == "*" || num == "/") { operand.push(1); }
             userClick = true;
             operand.push($num);//先推一個數字在推計算機上的數字
             squ = num;//符號存起來
         }
         else {
-            if (operand.length > 2) { operand.push($num); console.log("99", operand); calc(squ); }//存到兩個數字就計算
-            else { operand = []; operand.push($num); console.log("100", operand); }//重複按符號
+            console.log(operand.length,operand);
+            if (operand.length > 1) { operand.push($num*1);num3=0; console.log("99", operand); calc(squ); }//存到兩個數字就計算
+            else { operand = []; operand.push($num*1);operand.push(display); console.log("100", operand); }//重複按符號
             squ = num;
         }
     }
