@@ -39,16 +39,13 @@ $(function () {
             default:
                 _exist = 0;
                 _equl = 0;
-
                 if ($num === '0' && num == 0) { $(".answer>input").val("0"); }
                 else {
                     if (userClick == false) { displayNumber(num); console.log(num); }//還沒按過符號
                     else {
-                        console.log("42");//按過符號
                         $num = $(".answer>input").val(); //先存目前數字
                         $(".answer>input").val("");
-                        num2(num);
-                        flag = 0;
+                        displayNumber(num);console.log(num);
                     }
                 }
                 break;
@@ -65,12 +62,7 @@ $(function () {
         else { $(".answer>input").val("0"); }
     }
 
-    function num2(num) {
-        num3 += num;
-        $(".answer>input").val(num3.substr(1, num3.length - 1));
-        console.log(num3);
-        //按過符號
-    }
+
     function dot() {
         if (isDec == false) {
             isDec = true;
@@ -81,12 +73,9 @@ $(function () {
             console.log($num);
         }
     }
-    function answer() {
-        if (operand.length > 1) {
-            calc(squ);
-            num3 = 0;
-        }
 
+    function answer() { //重複按等於的不執行
+        if (operand.length > 1) { calc(squ); num3 = 0; }operand=[];userClick = false;console.log(operand);
     }
 
 
@@ -113,7 +102,7 @@ $(function () {
                 break;
         }
         operand = [];
-        operand.push(display);
+        operand.push(display);console.log(operand);
         num3 = 0;
     }
 
@@ -131,6 +120,7 @@ $(function () {
             operand.push($num);//先推一個數字在推計算機上的數字[123]
             squ = num;         //符號存起來
             userClick = true;
+            _exist = 1;
         }
 
         else {
@@ -148,11 +138,19 @@ $(function () {
 
     //單純的數字
     function displayNumber(num) {
-        $num += num;
-        display = $num;
-        $(".answer>input").val(display.substr(1, $num.length));
-    }
+        if (userClick == false) {
+            $num += num;
+            display = $num;
+            $(".answer>input").val(display.substr(1, $num.length));
+        }
 
+        else {
+            num3 += num;
+            $(".answer>input").val(num3.substr(1, num3.length - 1));
+            console.log(num3);
+        }
+        //按過符號
+    }
 
     //hover
     var $button = $(".btn");
