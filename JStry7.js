@@ -4,11 +4,11 @@ var display = 0;//機算機顯示的數字
 var isDec = false;
 var userClick = false;
 var $num = $(".answer>input").val();//計算機的數字
-
+var num3 = "";
 var _exist = 0;//重複的加減乘除
 var squ = 0;
-var num3 = 0;
-var flag = 0;
+
+
 
 var _equl = 0;
 $(function () {
@@ -19,7 +19,7 @@ $(function () {
     $("button").click(function () {
 
         var num = $(this).val();//計算機的數字
-        if ($(".answer>input").val().length > 14) { alert("超過15個字了"); $num = $num.substring(1, 15); $(".answer>input").val($num); }
+        if ($(".answer>input").val().length > 14) { alert("超過15個字了"); $num = $(".answer>input").val(); $num = $num.substring(0, $num.length); $(".answer>input").val($num); }
         switch (num) {
             case "clean":
                 display = 0;
@@ -29,7 +29,6 @@ $(function () {
                 $num = 0;
                 operand = [];
                 num3 = 0;
-                freq = [];
                 $(".answer>input").val(display);
                 break;
             case "del": del(); break;
@@ -41,7 +40,9 @@ $(function () {
                 _equl = 0;
                 if ($num === '0' && num == 0) { $(".answer>input").val("0"); }
                 else {
-                    if (userClick == false) { displayNumber(num); console.log(num); }//還沒按過符號
+                    if (userClick == false) {
+                        if ($(".answer>input").val()== "") { $(".answer>input").val("0");  } displayNumber(num); console.log(num);
+                    }//還沒按過符號
                     else {
                         $num = $(".answer>input").val(); //先存目前數字
                         $(".answer>input").val("");
@@ -57,25 +58,32 @@ $(function () {
         if ($num.length > 1) {
             $num = $num.substring(0, $num.length - 1);
             $(".answer>input").val($num);
-            if ($num == 0 || $num == "") $(".answer>input").val("0");
+            if ($num == 0 || $num == "") { $(".answer>input").val("0"); isDec = false; }
         }
         else { $(".answer>input").val("0"); }
     }
 
 
     function dot() {
-        if (isDec == false) {
-            isDec = true;
-            $num = $(".answer>input").val();
-            if ($(".answer>input").val() === "0") { $num = "0" + $num + "."; }
-            else { $num = "0" + $num + '.'; }
-            $(".answer>input").val($num.substr(1, length - 1));
-            console.log($num);
+        $num = $(".answer>input").val();
+        if ($num % 1 === 0) {
+            if (isDec == false) {
+                isDec = true;
+                if ($(".answer>input").val() === "0") { $num = "0" + $num + "."; console.log($num); }
+                else {
+                    $num = "0" + $num + '.'; console.log($num);
+                    $(".answer>input").val($num.substr(1, $num.length));
+                }
+
+                console.log($num);
+            }
+
         }
     }
 
+
     function answer() { //重複按等於的不執行
-        if (operand.length > 1 && _exist == 0) { calc(squ); num3 = 0; } operand = []; userClick = false; console.log(operand);
+        if (operand.length > 1 && _exist == 0) { calc(squ); num3 = ""; } operand = []; userClick = false; console.log(operand);
     }
 
 
@@ -103,7 +111,7 @@ $(function () {
         }
         operand = [];
         operand.push(display); console.log(operand);
-        num3 = 0;
+        num3 = "";
     }
 
 
@@ -113,31 +121,35 @@ $(function () {
     function calculator(num) {
         $num = $(".answer>input").val();   //$num計算機上的數字
         console.log(num);                  //num是符號
-        num3 = 0;
 
         if (userClick == false) { //還沒按過符號
             operand = [];
             operand.push($num);//先推一個數字在推計算機上的數字[123]
             squ = num;         //符號存起來
-            userClick = true;
             _exist = 1;
         }
-
         else {
             operand.push($num * 1);
             if (operand.length > 1) {
                 if (_exist == 0) {
                     _exist = 1;//避免重複的加減乘除
                     calc(squ);
-                    num3 = 0;
+                    num3 = "";
                 }
                 squ = num;//存第二個符號
+
             }
         }
+        display = 0;
+        isDec = false;
+        userClick = false;
+        num3 = "";
+        $num = "";
     }
 
     //單純的數字
     function displayNumber(num) {
+
         if (userClick == false) {
             $num += num;
             display = $num;
@@ -145,10 +157,13 @@ $(function () {
         }
 
         else {
+            isDec = false;
             num3 += num;
-            $(".answer>input").val(num3.substr(1, num3.length - 1));
             console.log(num3);
+            $(".answer>input").val(num3.substr(1, num3.length));
         }
+       
+
         //按過符號
     }
 
