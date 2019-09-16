@@ -45,7 +45,7 @@ $(function () {
                     else {
                         $num = $(".answer>input").val(); //先存目前數字
                         $(".answer>input").val("");
-                        displayNumber(num);console.log(num);
+                        displayNumber(num); console.log(num);
                     }
                 }
                 break;
@@ -75,7 +75,7 @@ $(function () {
     }
 
     function answer() { //重複按等於的不執行
-        if (operand.length > 1) { calc(squ); num3 = 0; }operand=[];userClick = false;console.log(operand);
+        if (operand.length > 1 && _exist == 0) { calc(squ); num3 = 0; } operand = []; userClick = false; console.log(operand);
     }
 
 
@@ -102,7 +102,7 @@ $(function () {
                 break;
         }
         operand = [];
-        operand.push(display);console.log(operand);
+        operand.push(display); console.log(operand);
         num3 = 0;
     }
 
