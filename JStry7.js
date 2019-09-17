@@ -28,7 +28,7 @@ $(function () {
                 userClick = false;
                 $num = 0;
                 operand = [];
-                num3 = 0;
+                num3 = "";
                 $(".answer>input").val(display);
                 break;
             case "del": del(); break;
@@ -41,10 +41,9 @@ $(function () {
                 if ($num === '0' && num == 0) { $(".answer>input").val("0"); }
                 else {
                     if (userClick == false) {
-                        if ($(".answer>input").val()== "") { $(".answer>input").val("0");  } displayNumber(num); console.log(num);
+                        if ($(".answer>input").val() == "") { $(".answer>input").val("0"); } displayNumber(num);
                     }//還沒按過符號
                     else {
-                        $num = $(".answer>input").val(); //先存目前數字
                         $(".answer>input").val("");
                         displayNumber(num); console.log(num);
                     }
@@ -71,11 +70,9 @@ $(function () {
                 isDec = true;
                 if ($(".answer>input").val() === "0") { $num = "0" + $num + "."; console.log($num); }
                 else {
-                    $num = "0" + $num + '.'; console.log($num);
-                    $(".answer>input").val($num.substr(1, $num.length));
+                    $num = $num + '.';
+                    $(".answer>input").val($num);
                 }
-
-                console.log($num);
             }
 
         }
@@ -88,20 +85,22 @@ $(function () {
 
 
     function calc(e) {
-        var operand_01 = operand.pop() * 1;
-        var operand_02 = operand.pop() * 1;
+        var operand_01 = operand.pop() * 1000;
+        var operand_02 = operand.pop() * 1000;
         switch (e) {
             case "+":
                 display = operand_01 + operand_02;
+                display=display/1000;
                 $(".answer>input").val(display);
-                console.log(operand_01, operand_02);
                 break;
             case "-":
                 display = operand_02 - operand_01;
+                display=display/1000;
                 $(".answer>input").val(display);
                 break;
             case "*":
                 display = operand_02 * operand_01;
+                display=display/1000000;
                 $(".answer>input").val(display);
                 break;
             case "/":
@@ -121,15 +120,21 @@ $(function () {
     function calculator(num) {
         $num = $(".answer>input").val();   //$num計算機上的數字
         console.log(num);                  //num是符號
-
+   
         if (userClick == false) { //還沒按過符號
-            operand = [];
+           // operand = [];
+            $num = $num * 1;
             operand.push($num);//先推一個數字在推計算機上的數字[123]
             squ = num;         //符號存起來
             _exist = 1;
+            console.log(operand);
+            userClick = true;
+
         }
         else {
+            $num = $num * 1;
             operand.push($num * 1);
+            console.log(operand);
             if (operand.length > 1) {
                 if (_exist == 0) {
                     _exist = 1;//避免重複的加減乘除
@@ -137,12 +142,13 @@ $(function () {
                     num3 = "";
                 }
                 squ = num;//存第二個符號
+               
 
             }
         }
         display = 0;
         isDec = false;
-        userClick = false;
+
         num3 = "";
         $num = "";
     }
@@ -151,18 +157,25 @@ $(function () {
     function displayNumber(num) {
 
         if (userClick == false) {
-            $num += num;
-            display = $num;
-            $(".answer>input").val(display.substr(1, $num.length));
+            num3 = $num;
+            num3 += num;
+            $num = num3 * 1;
+            $(".answer>input").val($num);
+            console.log("156");
+
         }
 
         else {
+
             isDec = false;
+            num3 = $num;
             num3 += num;
-            console.log(num3);
-            $(".answer>input").val(num3.substr(1, num3.length));
+            $num = num3 * 1;
+            console.log("163");
+            $(".answer>input").val($num);
+
         }
-       
+
 
         //按過符號
     }
