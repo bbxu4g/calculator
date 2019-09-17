@@ -7,10 +7,8 @@ var $num = $(".answer>input").val();//計算機的數字
 var num3 = "";
 var _exist = 0;//重複的加減乘除
 var squ = 0;
-
-
-
 var _equl = 0;
+
 $(function () {
     //先放0進去
     $(".answer>input").val(display);
@@ -74,7 +72,6 @@ $(function () {
                     $(".answer>input").val($num);
                 }
             }
-
         }
     }
 
@@ -90,17 +87,17 @@ $(function () {
         switch (e) {
             case "+":
                 display = operand_01 + operand_02;
-                display=display/1000;
+                display = display / 1000;
                 $(".answer>input").val(display);
                 break;
             case "-":
                 display = operand_02 - operand_01;
-                display=display/1000;
+                display = display / 1000;
                 $(".answer>input").val(display);
                 break;
             case "*":
                 display = operand_02 * operand_01;
-                display=display/1000000;
+                display = display / 1000000;
                 $(".answer>input").val(display);
                 break;
             case "/":
@@ -113,23 +110,19 @@ $(function () {
         num3 = "";
     }
 
-
-
-
     //按下四則運算則存數字
     function calculator(num) {
         $num = $(".answer>input").val();   //$num計算機上的數字
         console.log(num);                  //num是符號
-   
+
         if (userClick == false) { //還沒按過符號
-           // operand = [];
+            // operand = [];
             $num = $num * 1;
             operand.push($num);//先推一個數字在推計算機上的數字[123]
             squ = num;         //符號存起來
             _exist = 1;
             console.log(operand);
             userClick = true;
-
         }
         else {
             $num = $num * 1;
@@ -142,8 +135,6 @@ $(function () {
                     num3 = "";
                 }
                 squ = num;//存第二個符號
-               
-
             }
         }
         display = 0;
@@ -157,27 +148,23 @@ $(function () {
     function displayNumber(num) {
 
         if (userClick == false) {
-            num3 = $num;
+            if ($num == "0") { num3 = ""; }
+            else { num3 = $num; }
             num3 += num;
-            $num = num3 * 1;
+            $num = num3;
             $(".answer>input").val($num);
             console.log("156");
-
         }
 
         else {
-
             isDec = false;
             num3 = $num;
             num3 += num;
-            $num = num3 * 1;
+            $num = num3;
             console.log("163");
             $(".answer>input").val($num);
 
         }
-
-
-        //按過符號
     }
 
     //hover
