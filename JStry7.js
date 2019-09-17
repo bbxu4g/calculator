@@ -85,7 +85,7 @@ $(function () {
 
 
     function calc(e) {
-        var operand_01 = operand.pop() * 1000;
+        var operand_01 = operand.pop() * 1000;//防止JS的BUG
         var operand_02 = operand.pop() * 1000;
         switch (e) {
             case "+":
