@@ -64,12 +64,16 @@ $(function () {
     function dot() {
         $num = $(".answer>input").val();
         if ($num % 1 === 0) {
-            if (isDec == false) {
-                isDec = true;
-                if ($(".answer>input").val() === "0") { $num = "0" + $num + "."; console.log($num); }
-                else {
-                    $num = $num + '.';
+            if (userClick != false && num3 == "") { $(".answer>input").val("0."); }
+            else {
+                if (isDec == false) {
+                    isDec = true;
+                    if ($(".answer>input").val() === "0") { $num = "0."; console.log($num); }
+                    else {
+                        $num = $num + '.';
+                    }
                     $(".answer>input").val($num);
+
                 }
             }
         }
@@ -139,7 +143,6 @@ $(function () {
         }
         display = 0;
         isDec = false;
-
         num3 = "";
         $num = "";
     }
@@ -148,7 +151,9 @@ $(function () {
     function displayNumber(num) {
 
         if (userClick == false) {
+            console.log($num);
             if ($num == "0") { num3 = ""; }
+            else if ($num === "0.") { num3 = "0."; }
             else { num3 = $num; }
             num3 += num;
             $num = num3;
@@ -157,10 +162,12 @@ $(function () {
         }
 
         else {
+
+            console.log($num);
+            if ($num === "0") { $num = ""; }
+            else if ($num === "0.") { $num = "0."; }
             isDec = false;
-            num3 = $num;
-            num3 += num;
-            $num = num3;
+            $num += num;
             console.log("163");
             $(".answer>input").val($num);
 
