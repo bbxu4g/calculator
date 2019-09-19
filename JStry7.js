@@ -64,7 +64,7 @@ $(function () {
     function dot() {
         $num = $(".answer>input").val();
         if ($num % 1 === 0) {
-            if (userClick != false && num3 == "") { $(".answer>input").val("0."); }
+            if (userClick != false && $(".answer>input").val() == "") { $(".answer>input").val("0."); }
             else {
                 if (isDec == false) {
                     isDec = true;
@@ -164,8 +164,8 @@ $(function () {
         else {
 
             console.log($num);
-            if ($num === "0") { $num = ""; }
-            else if ($num === "0.") { $num = "0."; }
+            if ( $(".answer>input").val() === "0") { $num = ""; }
+            else if ( $(".answer>input").val() === "0.") { $num = "0."; }
             isDec = false;
             $num += num;
             console.log("163");
