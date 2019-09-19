@@ -77,6 +77,7 @@ $(function () {
                 }
             }
         }
+        else if(userClick != false&&num3==""){$(".answer>input").val("0.");$num=$(".answer>input").val();console.log("A");}
     }
 
 
