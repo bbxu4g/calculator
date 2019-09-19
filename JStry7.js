@@ -151,24 +151,20 @@ $(function () {
     function displayNumber(num) {
 
         if (userClick == false) {
-            console.log($num);
             if ($num == "0") { num3 = ""; }
             else if ($num === "0.") { num3 = "0."; }
             else { num3 = $num; }
             num3 += num;
             $num = num3;
             $(".answer>input").val($num);
-            console.log("156");
         }
 
         else {
 
-            console.log($num);
             if ( $(".answer>input").val() === "0") { $num = ""; }
             else if ( $(".answer>input").val() === "0.") { $num = "0."; }
             isDec = false;
             $num += num;
-            console.log("163");
             $(".answer>input").val($num);
 
         }
