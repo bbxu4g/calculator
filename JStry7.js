@@ -64,20 +64,20 @@ $(function () {
     function dot() {
         $num = $(".answer>input").val();
         if ($num % 1 === 0) {
-            if (userClick != false && num3== "") { $(".answer>input").val("0.");$num = "0.";}
+            if (userClick != false && num3== ""&&$num=="") { $(".answer>input").val("0.");$num = "0.";  }
             else {
                 if (isDec == false) {
                     isDec = true;
                     if ($(".answer>input").val() === "0") { $num = "0."; console.log($num); }
                     else {
-                        $num = $num + '.';
+                        $num = $num + '.';  
                     }
-                    $(".answer>input").val($num); ;
+                    $(".answer>input").val($num);   
 
                 }
             }
         }
-        else if(userClick != false&&num3==""){$(".answer>input").val("0.");$num=$(".answer>input").val();}
+        else if(userClick != false&&num3==""){$(".answer>input").val("0.");$num=$(".answer>input").val();   console.log("73"); }
     }
 
 
