@@ -53,11 +53,11 @@ $(function () {
     function del() {
         $num = $(".answer>input").val();
         if ($num.length > 1) {
-            $num = $num.substring(0, $num.length - 1);
+            $num =$num.substring(0, $num.length - 1);
             $(".answer>input").val($num);
-            if ($num == 0 || $num == "") { $(".answer>input").val("0"); isDec = false; }
+            if ($num === 0 || $num == "") { $(".answer>input").val("0"); isDec = false;   }
         }
-        else { $(".answer>input").val("0"); }
+        else { $(".answer>input").val("0");  }
     }
 
 
