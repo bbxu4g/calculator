@@ -29,9 +29,9 @@ $(function () {
                 num3 = "";
                 $(".answer>input").val(display);
                 break;
-            case "del":del(); break;
+            case "del": del(); break;
             case "+": case "-": case "*": case "/": if (_exist == 0) { calculator(num); } else { _exist = 1; calculator(num); } break;
-            case ".": if($(".answer>input").val()==="0" ){isDec = false;console.log("A"); } dot(); break;
+            case ".": if ($(".answer>input").val() === "0") { isDec = false; } dot(); break;
             case "answer": if (_equl == 0) { $num = $(".answer>input").val(); if ($num != "0") { operand.push($num); answer(); } _equl = 1; } break;
             default:
                 _exist = 0;
@@ -53,34 +53,33 @@ $(function () {
     function del() {
         $num = $(".answer>input").val();
         if ($num.length > 1) {
-            $num =$num.substring(0, $num.length - 1);
+            $num = $num.substring(0, $num.length - 1);
             $(".answer>input").val($num);
-            if ($num === 0 || $num == "") { $(".answer>input").val("0"); isDec = false;   }
+            if ($num === 0 || $num == "") { $(".answer>input").val("0"); isDec = false; }
         }
-        else { $(".answer>input").val("0");  }
+        else { $(".answer>input").val("0"); }
     }
 
 
     function dot() {
-        $num = $(".answer>input").val();
-        
-        if ($num % 1 === 0) {
-            if (userClick != false && num3 == "" && $num == "") { $(".answer>input").val("0."); $num = "0."; }
-            else {
-                if (isDec == false) {
-                    isDec = true;
-                    if ($(".answer>input").val() === "0") { $num = "0."; console.log($num); }
-                    else {
-                        $num = $num + '.';
-                    }
-                    $(".answer>input").val($num);
 
+
+        if ($num % 1 === 0) {
+            if (isDec == false) {
+                if (userClick != false && num3 == "") {//按下+-/*的時候
+                    if ($(".answer>input").val() == "") { $(".answer>input").val("0."); $num = "0."; isDec = true; console.log($num); }
+                    else {
+                        if ($(".answer>input").val() < 1) { $(".answer>input").val("0."); $num = "0."; console.log($num); }
+                        else { $num = $num + "."; $(".answer>input").val($num); isDec = true; console.log($num); }
+                    }
                 }
-            }
-        }
-        else if (isDec == false) {
-            if (userClick != false && num3 == "") {
-                $(".answer>input").val("0."); $num = $(".answer>input").val(); console.log("73"); isDec = true;
+                else {
+                    isDec = true;
+                    if ($(".answer>input").val() === "0") { $num = "0.";  $(".answer>input").val($num);console.log($num); }//等於0的時候
+                    else { $num = $num + '.'; $(".answer>input").val($num); console.log($num);}//不等於就直接加
+                   
+                }
+
             }
         }
     }
@@ -157,7 +156,7 @@ $(function () {
     function displayNumber(num) {
 
         if (userClick == false) {
-            if ($num == "0") { num3 = ""; }
+            if ($(".answer>input").val() == "0") { num3 = ""; }
             else if ($num === "0.") { num3 = "0."; }
             else { num3 = $num; }
             num3 += num;
