@@ -67,7 +67,7 @@ $(function () {
             if (userClick != false && num3 == "" && $num == "") { $(".answer>input").val("0."); $num = "0."; }
             else {
                 if (isDec == false) {
-
+                    isDec = true;
                     if ($(".answer>input").val() === "0") { $num = "0."; console.log($num); }
                     else {
                         $num = $num + '.';
