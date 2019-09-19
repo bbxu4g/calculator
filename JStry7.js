@@ -29,9 +29,9 @@ $(function () {
                 num3 = "";
                 $(".answer>input").val(display);
                 break;
-            case "del": del(); break;
+            case "del":del(); break;
             case "+": case "-": case "*": case "/": if (_exist == 0) { calculator(num); } else { _exist = 1; calculator(num); } break;
-            case ".": dot(); break;
+            case ".": if($(".answer>input").val()==="0" ){isDec = false;console.log("A"); } dot(); break;
             case "answer": if (_equl == 0) { $num = $(".answer>input").val(); if ($num != "0") { operand.push($num); answer(); } _equl = 1; } break;
             default:
                 _exist = 0;
@@ -63,6 +63,7 @@ $(function () {
 
     function dot() {
         $num = $(".answer>input").val();
+        
         if ($num % 1 === 0) {
             if (userClick != false && num3 == "" && $num == "") { $(".answer>input").val("0."); $num = "0."; }
             else {
