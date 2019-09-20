@@ -31,7 +31,7 @@ $(function () {
                 break;
             case "del": del(); break;
             case "+": case "-": case "*": case "/": if (_exist == 0) { calculator(num); } else { _exist = 1; calculator(num); } break;
-            case ".": if ($(".answer>input").val() === "0") { isDec = false; } dot(); break;
+            case ".": dot(); break;
             case "answer": if (_equl == 0) { $num = $(".answer>input").val(); if ($num != "0") { operand.push($num); answer(); } _equl = 1; } break;
             default:
                 _exist = 0;
@@ -64,34 +64,38 @@ $(function () {
     function dot() {
 
         if (isDec == false) {
-            {
-                isDec = true;
-                if (operand.length == 1 && num3 == 0) {
-                    if ($num < 1 || $num == "") {
-                        $num = "0.";
-                        $(".answer>input").val($num); console.log($num);
-                    }
-                    else {
-                        $num = $num + ".";
-                        $(".answer>input").val($num);
-                        console.log($num);
-                    }
+            isDec = true;
+            if (operand.length == 1 && num3 == "") {
+                if ($num < 1 || $num == "") {
+                    $num = "0.";
+                    $(".answer>input").val($num); console.log($(".answer>input").val().indexOf("."));
                 }
                 else {
+                    if ($(".answer>input").val().indexOf(".") == -1) {
+                        $num = $num + ".";
+                        $(".answer>input").val($num);
+                        console.log($(".answer>input").val().indexOf("."));
+                    }
+                }
+            }
+            else {
+                if ($(".answer>input").val().indexOf(".") == -1) {
                     $num = $(".answer>input").val();
                     $num = $num + ".";
                     $(".answer>input").val($num);
-                    console.log($num);
+                    console.log($(".answer>input").val().indexOf("."));
                 }
+
             }
         }
 
+
         else {
-            if ($num.indexOf(".") == -1) {
+            if ($(".answer>input").val().indexOf(".") == -1) {
                 {
                     $num = $(".answer>input").val();
                     $num = $num + ".";
-                    $(".answer>input").val($num); console.log($num);
+                    $(".answer>input").val($num); console.log($(".answer>input").val().indexOf("."));
                 }
 
             }
@@ -188,7 +192,7 @@ $(function () {
 
             if ($(".answer>input").val() === "0") { $num = ""; }
             else if ($(".answer>input").val() === "0.") { $num = "0."; }
-            isDec = false;
+            isDec = true;
             $num += num;
             $(".answer>input").val($num);
 
