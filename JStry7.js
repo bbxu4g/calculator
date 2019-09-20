@@ -33,7 +33,8 @@ $(function () {
             case "-": if ($(".answer>input").val() == "0" || $num == "") { $num = "-"; $(".answer>input").val($num); } if (_exist == 0) { calculator(num); } else { _exist = 1; calculator(num); } break;
             case "+": case "*": case "/": if (_exist == 0) { calculator(num); } else { _exist = 1; calculator(num); } break;
             case ".": dot(); break;
-            case "answer": if (_equl == 0) { $num = $(".answer>input").val(); if ($num != "0") { operand.push($num); answer(); } _equl = 1; } break;
+            case "answer": if (_equl == 0) { $num = $(".answer>input").val(); operand.push($num); answer(); } _equl = 1;
+                break;
             default:
                 _exist = 0;
                 _equl = 0;
@@ -53,7 +54,7 @@ $(function () {
             $(".answer>input").val($num);
             if ($num === 0 || $num == "") { $(".answer>input").val("0"); isDec = false; }
         }
-        else { $(".answer>input").val("0"); $num = 0; }
+        else { $(".answer>input").val("0"); }
     }
 
 
@@ -101,13 +102,19 @@ $(function () {
     }
 
     function answer() { //重複按等於的不執行
-        if (operand.length > 1 && _exist == 0) { calc(squ); num3 = ""; } operand = []; userClick = false; console.log(operand);
+        if (operand.length >= 1 && _exist == 0) { calc(squ); num3 = ""; } operand = []; userClick = false; console.log(operand);
     }
 
 
     function calc(e) {
-        var operand_01 = operand.pop() * 1000;//防止JS的BUG
-        var operand_02 = operand.pop() * 1000;
+        if (operand.length > 1) {
+            var operand_01 = operand.pop() * 1000;//防止JS的BUG
+            var operand_02 = operand.pop() * 1000;
+        }
+        else if (operand.length == 1) {
+            var operand_01 = operand.pop() * 1000;
+            var operand_02 = 0;
+        }
         switch (e) {
             case "+":
                 display = operand_01 + operand_02;
@@ -200,9 +207,9 @@ $(function () {
         $(this).css({ "opacity": "0.5" });
     }, function () { $(this).css({ "opacity": "1" }); });
 
-    // $(".answer>input").keypress(function (e) {
-    //     if (e.keyCode == 13) { $(".btn").click(); };
+    $(".btn").keypress(function (e) {
+        if (e.keyCode >= 48 && e.keyCode <= 57) { $("button").click(); };
 
-    // });
+    });
 
 })
