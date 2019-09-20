@@ -179,7 +179,7 @@ $(function () {
     //單純的數字
     function displayNumber(num) {
 
-        if (userClick == false) {
+        if (userClick == false) {//還沒按+-*/
             if ($(".answer>input").val() == "0") { num3 = ""; }
             else if ($num === "0.") { num3 = "0."; }
             else { num3 = $num; }
@@ -188,11 +188,14 @@ $(function () {
             $(".answer>input").val($num);
         }
 
-        else {
-
-            if ($(".answer>input").val() === "0") { $num = ""; }
-            else if ($(".answer>input").val() === "0.") { $num = "0."; }
-            isDec = true;
+        else {//按+-*/後
+            if (isDec == true) {
+                if ($(".answer>input").val() === "0.") { $num = "0."; }
+            }
+            else {
+                if ($(".answer>input").val() === "0") { $num = ""; }
+                else if ($(".answer>input").val() == "") { $num = ""; }
+            }
             $num += num;
             $(".answer>input").val($num);
 
