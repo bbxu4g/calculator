@@ -63,26 +63,46 @@ $(function () {
 
     function dot() {
 
-
-        if ($num % 1 === 0) {
-            if (isDec == false) {
-                if (userClick != false && num3 == "") {//按下+-/*的時候
-                    if ($(".answer>input").val() == "") { $(".answer>input").val("0."); $num = "0."; isDec = true; console.log($num); }
+        if (isDec == false) {
+            {
+                isDec = true;
+                if (operand.length == 1 && num3 == 0) {
+                    if ($num < 1 || $num == "") {
+                        $num = "0.";
+                        $(".answer>input").val($num); console.log($num);
+                    }
                     else {
-                        if ($(".answer>input").val() < 1) { $(".answer>input").val("0."); $num = "0."; console.log($num); }
-                        else { $num = $num + "."; $(".answer>input").val($num); isDec = true; console.log($num); }
+                        $num = $num + ".";
+                        $(".answer>input").val($num);
+                        console.log($num);
                     }
                 }
                 else {
-                    isDec = true;
-                    if ($(".answer>input").val() === "0") { $num = "0.";  $(".answer>input").val($num);console.log($num); }//等於0的時候
-                    else { $num = $num + '.'; $(".answer>input").val($num); console.log($num);}//不等於就直接加
-                   
+                    $num = $(".answer>input").val();
+                    $num = $num + ".";
+                    $(".answer>input").val($num);
+                    console.log($num);
+                }
+            }
+        }
+
+        else {
+            if ($num.indexOf(".") == -1) {
+                {
+                    $num = $(".answer>input").val();
+                    $num = $num + ".";
+                    $(".answer>input").val($num); console.log($num);
                 }
 
             }
-        }
+        }//等於0的時候
+
+
     }
+
+
+
+
 
 
     function answer() { //重複按等於的不執行
