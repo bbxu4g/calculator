@@ -17,7 +17,7 @@ $(function () {
     $("button").click(function () {
 
         var num = $(this).val();//計算機的數字
-        if ($(".answer>input").val().length > 14) { alert("超過15個字了"); $num = $(".answer>input").val(); $num = $num.substring(0, 15); $(".answer>input").val($num); }
+        if ($(".answer>input").val().length > 14) { alert("超過15個字了"); $num = $(".answer>input").val(); $num = $num.substring(0, 14); $(".answer>input").val($num); }
         switch (num) {
             case "clean":
                 display = 0;
@@ -30,7 +30,8 @@ $(function () {
                 $(".answer>input").val(display);
                 break;
             case "del": del(); break;
-            case "+": case "-": case "*": case "/": if ($(".answer>input").val() == "0") { $num = "-"; $(".answer>input").val($num); } if (_exist == 0) { calculator(num); } else { _exist = 1; calculator(num); } break;
+            case "-": if ($(".answer>input").val() == "0" || $num == "") { $num = "-"; $(".answer>input").val($num); } if (_exist == 0) { calculator(num); } else { _exist = 1; calculator(num); } break;
+            case "+": case "*": case "/": if (_exist == 0) { calculator(num); } else { _exist = 1; calculator(num); } break;
             case ".": dot(); break;
             case "answer": if (_equl == 0) { $num = $(".answer>input").val(); if ($num != "0") { operand.push($num); answer(); } _equl = 1; } break;
             default:
@@ -52,7 +53,7 @@ $(function () {
             $(".answer>input").val($num);
             if ($num === 0 || $num == "") { $(".answer>input").val("0"); isDec = false; }
         }
-        else { $(".answer>input").val("0"); }
+        else { $(".answer>input").val("0"); $num = 0; }
     }
 
 
@@ -181,14 +182,14 @@ $(function () {
 
         else {//按+-*/後
             if (isDec == true) {
-                if ($(".answer>input").val() === "0.") { $num = "0."; console.log("A"); }
+                if ($(".answer>input").val() === "0.") { $num = "0."; }
             }
             else {
-                if ($(".answer>input").val() === "0") { $num = ""; console.log("A"); }
-                else if ($(".answer>input").val() == "") { $num = ""; console.log("A"); }
+                if ($(".answer>input").val() === "0") { $num = ""; }
+                else if ($(".answer>input").val() == "") { $num = ""; }
             }
             $num += num;
-            $(".answer>input").val($num); console.log("A");
+            $(".answer>input").val($num);
 
         }
     }
@@ -199,9 +200,9 @@ $(function () {
         $(this).css({ "opacity": "0.5" });
     }, function () { $(this).css({ "opacity": "1" }); });
 
-    $(".answer>input").keypress(function (e) {
-        if (e.keyCode == 13) { $(".btn").click(); };
+    // $(".answer>input").keypress(function (e) {
+    //     if (e.keyCode == 13) { $(".btn").click(); };
 
-    });
+    // });
 
 })
