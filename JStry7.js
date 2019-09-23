@@ -207,9 +207,14 @@ $(function () {
         $(this).css({ "opacity": "0.5" });
     }, function () { $(this).css({ "opacity": "1" }); });
 
-    $(".btn").keypress(function (e) {
-        if (e.keyCode >= 48 && e.keyCode <= 57) { $("button").click(); };
+    document.onkeydown = keyFunction;
+    function keyFunction() {
+        console.log(event.keyCode);
+        if (event.keyCode >= 48 && event.keyCode <= 57) {
+            $(".button").click();
+            console.log(event.keyCode);
+        }
+    }
 
-    });
 
 })
